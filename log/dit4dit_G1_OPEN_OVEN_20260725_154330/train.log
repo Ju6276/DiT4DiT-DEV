@@ -1,0 +1,19 @@
+2026-07-25 15:43:30 | INFO | __main__ | Training log file: log/dit4dit_G1_OPEN_OVEN_20260725_154330/train.log
+2026-07-25 15:43:30 | INFO | __main__ | No pretrained checkpoint provided. Starting training from scratch.
+2026-07-25 15:43:30 | INFO | __main__ | ================================================================================
+2026-07-25 15:43:30 | INFO | __main__ | 📊 Model Parameter Statistics (after freezing):
+2026-07-25 15:43:30 | INFO | __main__ |   Total parameters:      10,641,441,815 (10641.442M)
+2026-07-25 15:43:30 | INFO | __main__ |   Trainable parameters:  2,222,382,628 (2222.383M)
+2026-07-25 15:43:30 | INFO | __main__ |   Frozen parameters:     8,419,059,187 (8419.059M)
+2026-07-25 15:43:30 | INFO | __main__ |   Trainable ratio:       20.88%
+2026-07-25 15:43:30 | INFO | __main__ | ================================================================================
+2026-07-25 15:43:46 | INFO | __main__ | ***** Training Configuration *****
+2026-07-25 15:43:46 | INFO | __main__ |   Total optimization steps = 40000
+2026-07-25 15:43:46 | INFO | __main__ |   Per device batch size = 2
+2026-07-25 15:43:46 | INFO | __main__ |   Gradient accumulation steps = 1
+2026-07-25 15:43:46 | INFO | __main__ |   Total batch size = 4
+2026-07-25 15:43:46 | INFO | __main__ |   len(vla_train_dataloader) = 8679
+2026-07-25 15:43:46 | INFO | __main__ |   len(vla_train_dataloader.dataset) = 34713
+2026-07-25 15:44:12 | INFO | __main__ | [Exp: dit4dit_G1_OPEN_OVEN] Step 10, Loss: {'action_dit_loss': 1.377663016319275, 'future_video_loss': 0.34652331471443176, 'future_video_loss_scaled': 0.34652331471443176, 'total_loss': 1.7241863012313843, 'data_time': 0.013316008960828185, 'model_time': 1.7564748529111966, 'learning_rate/backbone_interface': 5.0000000000000004e-08, 'learning_rate/action_model': 5.000000000000001e-07, 'epoch': 0.0})
+2026-07-25 15:44:30 | INFO | __main__ | [Exp: dit4dit_G1_OPEN_OVEN] Step 20, Loss: {'action_dit_loss': 1.438582420349121, 'future_video_loss': 0.16824953258037567, 'future_video_loss_scaled': 0.16824953258037567, 'total_loss': 1.6068319082260132, 'data_time': 0.0272053440567106, 'model_time': 1.7718236549990252, 'learning_rate/backbone_interface': 1.0000000000000001e-07, 'learning_rate/action_model': 1.0000000000000002e-06, 'epoch': 0.0})
+2026-07-25 15:44:48 | INFO | __main__ | [Exp: dit4dit_G1_OPEN_OVEN] Step 30, Loss: {'action_dit_loss': 1.4774072170257568, 'future_video_loss': 0.23394475877285004, 'future_video_loss_scaled': 0.23394475877285004, 'total_loss': 1.711351990699768, 'data_time': 0.027558085974305868, 'model_time': 1.7645763090113178, 'learning_rate/backbone_interface': 1.5000000000000002e-07, 'learning_rate/action_model': 1.5e-06, 'epoch': 0.0})

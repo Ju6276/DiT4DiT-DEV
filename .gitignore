@@ -1,0 +1,19 @@
+# 🔥 你要求忽略的核心文件夹（绝对不上传）
+Cosmos-Predict2.5-2B/
+datasets/
+results/
+
+# 通用忽略文件（无需上传的缓存/日志/环境）
+data/
+logs/
+outputs/
+__pycache__/
+*.pyc
+*.pyo
+.vscode/
+.idea/
+tmp/
+temp/
+*.zip
+*.tar
+*.gz

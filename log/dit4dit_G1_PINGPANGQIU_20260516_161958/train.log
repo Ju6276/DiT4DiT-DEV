@@ -1,0 +1,9 @@
+2026-05-16 16:19:59 | INFO | __main__ | Training log file: log/dit4dit_G1_PINGPANGQIU_20260516_161958/train.log
+2026-05-16 16:19:59 | INFO | __main__ | No pretrained checkpoint provided. Starting training from scratch.
+2026-05-16 16:19:59 | INFO | __main__ | ================================================================================
+2026-05-16 16:19:59 | INFO | __main__ | 📊 Model Parameter Statistics (after freezing):
+2026-05-16 16:19:59 | INFO | __main__ |   Total parameters:      10,641,428,226 (10641.428M)
+2026-05-16 16:19:59 | INFO | __main__ |   Trainable parameters:  2,222,369,039 (2222.369M)
+2026-05-16 16:19:59 | INFO | __main__ |   Frozen parameters:     8,419,059,187 (8419.059M)
+2026-05-16 16:19:59 | INFO | __main__ |   Trainable ratio:       20.88%
+2026-05-16 16:19:59 | INFO | __main__ | ================================================================================
