@@ -12,6 +12,22 @@ from typing import Dict, List, Tuple
 ## {nakename: [(data_name, sampling_weight, robot_type)] }
 DATASET_NAMED_MIXTURES = {
 
+    # HumanoidArena semantic-v3.1 protocol in LeRobot v2.1 containers.
+    **{
+        f"humanoidarena_sonic40_{task}": [
+            (f"humanoidarena_sonic_v31_{task}", 1.0, "humanoidarena_sonic40")
+        ]
+        for task in (
+            "opendoor",
+            "double_desk",
+            "football",
+            "pp_box",
+            "boxing",
+            "sit_sofa",
+            "vision_navi",
+        )
+    },
+
     "custom_dataset": [
         ("custom_dataset_name", 1.0, "custom_robot_config"),
     ],
@@ -401,4 +417,3 @@ DATASET_NAMED_MIXTURES = {
         ("your_g1_dataset_name", 1.0, "g1_body29_aloha_full_body"),
     ]
 }
-

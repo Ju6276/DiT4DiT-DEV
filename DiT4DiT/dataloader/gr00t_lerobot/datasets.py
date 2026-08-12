@@ -364,6 +364,9 @@ class LeRobotSingleDataset(Dataset):
 
         # 2. Dataset statistics
         stats_path = self.dataset_path / LE_ROBOT_STATS_FILENAME
+        release_stats_path = self.dataset_path / "meta/stats.json"
+        if not stats_path.exists() and release_stats_path.exists():
+            stats_path = release_stats_path
         try:
             with open(stats_path, "r") as f:
                 le_statistics = json.load(f)
@@ -392,7 +395,9 @@ class LeRobotSingleDataset(Dataset):
                 state_action_meta = le_modality_meta.get_key_meta(f"{our_modality}.{subkey}")
                 assert isinstance(state_action_meta, LeRobotStateActionMetadata)
                 le_modality = state_action_meta.original_key
-                for stat_name in le_statistics[le_modality]:
+                # LeRobot v2.1 also stores scalar `count` and extra quantiles;
+                # only consume the per-dimension statistics required here.
+                for stat_name in ("max", "min", "mean", "std", "q01", "q99"):
                     indices = np.arange(
                         state_action_meta.start,
                         state_action_meta.end,
@@ -1427,7 +1432,8 @@ def generate_action_mask_for_used_keys(action_modalities: dict, used_action_keys
                 dim_count = 1
             
             # Check if it's gripper-related
-            is_gripper = "gripper" in subkey.lower()
+            normalized_subkey = subkey.lower()
+            is_gripper = "gripper" in normalized_subkey or "binary" in normalized_subkey
             
             # Generate mask value for each dimension
             for _ in range(dim_count):

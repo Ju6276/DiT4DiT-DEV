@@ -1071,6 +1071,65 @@ class UnitreeG1AlohaFullBodyDataConfig(UnitreeG1DataConfig):
     action_indices = list(range(50))
 
 
+class HumanoidArenaSonic40DataConfig(BaseDataConfig):
+    """SONIC-only HumanoidArena semantic-v3.1 state/action contract."""
+
+    video_keys = ["video.front"]
+    state_keys = ["state.root_rot6d", "state.joint_pos", "state.joint_vel"]
+    action_keys = [
+        "action.root_xy_delta",
+        "action.root_z",
+        "action.root_rot6d",
+        "action.joint_pos",
+        "action.hand_binary",
+    ]
+    language_keys = ["annotation.human.task_description"]
+    observation_indices = [0]
+    action_indices = list(range(30))
+
+    def modality_config(self):
+        return {
+            "video": ModalityConfig(
+                delta_indices=self.observation_indices,
+                modality_keys=self.video_keys,
+            ),
+            "state": ModalityConfig(
+                delta_indices=self.observation_indices,
+                modality_keys=self.state_keys,
+            ),
+            "action": ModalityConfig(
+                delta_indices=self.action_indices,
+                modality_keys=self.action_keys,
+            ),
+            "language": ModalityConfig(
+                delta_indices=self.observation_indices,
+                modality_keys=self.language_keys,
+            ),
+        }
+
+    def transform(self) -> ModalityTransform:
+        return ComposedModalityTransform(
+            transforms=[
+                StateActionToTensor(apply_to=self.state_keys),
+                StateActionTransform(
+                    apply_to=self.state_keys,
+                    normalization_modes={key: "min_max" for key in self.state_keys},
+                ),
+                StateActionToTensor(apply_to=self.action_keys),
+                StateActionTransform(
+                    apply_to=self.action_keys,
+                    normalization_modes={
+                        "action.root_xy_delta": "min_max",
+                        "action.root_z": "min_max",
+                        "action.root_rot6d": "min_max",
+                        "action.joint_pos": "min_max",
+                        "action.hand_binary": "binary",
+                    },
+                ),
+            ]
+        )
+
+
 
 ROBOT_TYPE_CONFIG_MAP = {
     "libero_franka": Libero4in1DataConfig(),
@@ -1086,5 +1145,5 @@ ROBOT_TYPE_CONFIG_MAP = {
     "custom_robot_config": SingleFrankaRobotiqDeltaEefDataConfig(),
     "g1_body29_aloha_arms_only": UnitreeG1AlohaOnlyArmsDataConfig(),
     "g1_body29_aloha_full_body": UnitreeG1AlohaFullBodyDataConfig(),
+    "humanoidarena_sonic40": HumanoidArenaSonic40DataConfig(),
 }
-
