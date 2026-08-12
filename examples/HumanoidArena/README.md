@@ -59,7 +59,9 @@ python examples/HumanoidArena/validate_dataset.py \
 
 Install DiT4DiT exactly as described in the upstream README and provide the
 official diffusers-format Cosmos-Predict2.5-2B base model. The benchmark keeps
-DiT4DiT's native AdamW, bf16, Accelerate, and DeepSpeed ZeRO-2 setup.
+DiT4DiT's native AdamW, bf16, Accelerate, and DeepSpeed ZeRO-2 setup. It also
+matches the official downstream-task scripts by freezing the Cosmos text
+encoder and VAE while training the video transformer/interface and ActionDiT.
 
 For the formal configuration (eight A100 GPUs, one sample per GPU, global batch
 8, 100,000 optimizer steps, W&B online):
@@ -127,7 +129,9 @@ enabled. Use a fresh results directory for the formal run.
 ## Single-4090 diagnostic
 
 This command is only a real one-step compatibility/memory test. It deliberately
-uses global batch 1 and must not be reported as a benchmark training run:
+uses global batch 1 and must not be reported as a benchmark training run. On a
+48 GB 4090D, the official frozen-module recipe reaches forward and backward but
+still runs out of memory when the first AdamW step allocates its moment state:
 
 ```bash
 CUDA_VISIBLE_DEVICES=0 NUM_PROCESSES=1 GLOBAL_BATCH_SIZE=1 \

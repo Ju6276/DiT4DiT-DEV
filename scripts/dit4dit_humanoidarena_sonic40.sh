@@ -24,6 +24,7 @@ MAX_STEPS="${MAX_STEPS:-100000}"
 SAVE_INTERVAL="${SAVE_INTERVAL:-5000}"
 GLOBAL_BATCH_SIZE="${GLOBAL_BATCH_SIZE:-8}"
 GRADIENT_ACCUMULATION_STEPS="${GRADIENT_ACCUMULATION_STEPS:-1}"
+FREEZE_MODULES="${FREEZE_MODULES:-backbone_interface.extractor.text_encoder,backbone_interface.extractor.vae}"
 
 export CUDA_VISIBLE_DEVICES="${CUDA_VISIBLE_DEVICES:-0,1,2,3,4,5,6,7}"
 IFS=',' read -r -a GPU_IDS <<<"${CUDA_VISIBLE_DEVICES}"
@@ -65,6 +66,7 @@ exec "${TRAIN_PYTHON}" -m accelerate.commands.launch \
   --datasets.vla_data.data_root_dir "${DATA_ROOT}" \
   --datasets.vla_data.data_mix "humanoidarena_sonic40_${TASK}" \
   --datasets.vla_data.per_device_batch_size "${PER_DEVICE_BATCH_SIZE}" \
+  --trainer.freeze_modules "${FREEZE_MODULES}" \
   --trainer.max_train_steps "${MAX_STEPS}" \
   --trainer.save_interval "${SAVE_INTERVAL}" \
   --trainer.gradient_accumulation_steps "${GRADIENT_ACCUMULATION_STEPS}"

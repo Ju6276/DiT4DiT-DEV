@@ -81,7 +81,10 @@ trainer:
   lr_scheduler_type: cosine_with_min_lr
   scheduler_specific_kwargs:
     min_lr: 5.0e-07
-  freeze_modules: ""
+  # Match the official DiT4DiT downstream-task scripts. The Cosmos text
+  # encoder and VAE stay frozen; the video transformer/interface and ActionDiT
+  # remain trainable.
+  freeze_modules: "backbone_interface.extractor.text_encoder,backbone_interface.extractor.vae"
   repeated_diffusion_steps: 4
   max_grad_norm: 1.0
   warmup_ratio: 0.1
